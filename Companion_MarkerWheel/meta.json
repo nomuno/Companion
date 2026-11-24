@@ -1,0 +1,5 @@
+{
+  "game": "WoW: Forever",
+  "summary": "Companion module (requires Companion): one keybind for raid marks. Tap to cycle marks on your target, hold to open a radial marker wheel. Works in combat.",
+  "parent": "Companion"
+}

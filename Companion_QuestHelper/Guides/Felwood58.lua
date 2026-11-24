@@ -1,0 +1,57 @@
+-- Companion module: Quest Helper. Uses the shared Companion table (this file is a separate addon; `ns` is not shared automatically).
+-- Guides/Felwood58.lua - Felwood 58-60, uiMapID 1448.
+-- 2026-10-14: route order from the Polestar addon (horde/50-60/07-felwood.guide): Polestar is credited in CREDITS.txt; Companion is GPL-3.0.
+-- Step data: our existing guides > ForeverDB > Wowhead > Questie classic DB. Coordinates are database values
+-- ('approximate', not play-tested on Forever). Class training is not routed here; train when you hearth.
+local ns = _G.Companion
+if not ns then return end
+ns:RegisterGuide("Felwood 58-60", {
+    faction = "Horde", minLevel = 57, maxLevel = 61, mapID = 1448, startZones = { 1448 },
+    steps = {
+        { type = "turnin", qid = 7836, title = "A Donation of Runecloth", mapID = 1454, x = 37.7, y = 87.9, note = "approximate coords (database, not play-tested); Vehena" },
+        { type = "turnin", qid = 7824, title = "A Donation of Runecloth", mapID = 1454, x = 63.6, y = 51.2, note = "approximate coords (database, not play-tested); Rashona Straglash" },
+        { type = "note", text = "Fly to Splintertree Post", note = "Polestar route note; Next when done" },
+        { type = "turnin", qid = 5159, title = "Cleansed Water Returns to Felwood", mapID = 1448, x = 51.2, y = 82.1, note = "approximate coords (database, not play-tested); Greta Mosshoof" },
+        { type = "accept", qid = 5165, title = "Dousing the Flames of Protection", x = 51.2, y = 82.1, note = "approximate coords (database, not play-tested); Greta Mosshoof" },
+        { type = "turnin", qid = 3942, title = "Linken's Memory", mapID = 1448, x = 51.4, y = 81.5, note = "approximate coords (database, not play-tested); Eridan Bluewind" },
+        { type = "collect", qid = 5165, title = "Brazier of Pain", obj = 1, x = 36.3, y = 56.3, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Pain", obj = 1, x = 36.3, y = 56.3, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Pain", obj = 1, x = 36.3, y = 56.3, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Malice", obj = 2, x = 37.7, y = 52.7, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Malice", obj = 2, x = 37.7, y = 52.7, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Malice", obj = 2, x = 37.7, y = 52.7, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Suffering", obj = 3, x = 36.7, y = 53.3, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Suffering", obj = 3, x = 36.7, y = 53.3, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Suffering", obj = 3, x = 36.7, y = 53.3, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Hatred", obj = 4, x = 36.5, y = 55.2, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Hatred", obj = 4, x = 36.5, y = 55.2, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5165, title = "Brazier of Hatred", obj = 4, x = 36.5, y = 55.2, note = "approximate coords (database, not play-tested)" },
+        { type = "turnin", qid = 5165, title = "Dousing the Flames of Protection", x = 51.2, y = 82.1, note = "approximate coords (database, not play-tested); Greta Mosshoof" },
+        { type = "accept", qid = 5242, title = "A Final Blow", x = 51.2, y = 82.1, note = "approximate coords (database, not play-tested); Greta Mosshoof" },
+        { type = "kill", qid = 5242, obj = 1, title = "Moora", x = 38.8, y = 46.9, note = "approximate coords (database, not play-tested)" },
+        { type = "kill", qid = 5242, obj = 2, title = "Salia", x = 38.8, y = 46.7, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5242, obj = 3, title = "Shadow Lord Fel'dan's Head", x = 38.8, y = 46.8, note = "approximate coords (database, not play-tested); Shadow Lord Fel'dan" },
+        { type = "kill", qid = 5242, obj = 1, title = "Moora", x = 38.8, y = 46.9, note = "approximate coords (database, not play-tested)" },
+        { type = "kill", qid = 5242, obj = 2, title = "Salia", x = 38.8, y = 46.7, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5242, obj = 3, title = "Shadow Lord Fel'dan's Head", x = 38.8, y = 46.8, note = "approximate coords (database, not play-tested); Shadow Lord Fel'dan" },
+        { type = "kill", qid = 5242, obj = 1, title = "Moora", x = 38.8, y = 46.9, note = "approximate coords (database, not play-tested)" },
+        { type = "kill", qid = 5242, obj = 2, title = "Salia", x = 38.8, y = 46.7, note = "approximate coords (database, not play-tested)" },
+        { type = "collect", qid = 5242, obj = 3, title = "Shadow Lord Fel'dan's Head", x = 38.8, y = 46.8, note = "approximate coords (database, not play-tested); Shadow Lord Fel'dan" },
+        { type = "turnin", qid = 5242, title = "A Final Blow", x = 51.2, y = 82.1, note = "approximate coords (database, not play-tested); Greta Mosshoof" },
+        { type = "turnin", qid = 6605, title = "A Strange One", mapID = 1448, x = 34.2, y = 52.3, note = "approximate coords (database, not play-tested); Winna Hazzard" },
+        { type = "turnin", qid = 4741, title = "Wild Guardians", x = 34.7, y = 52.8, note = "approximate coords (database, not play-tested); Trull Failbane" },
+        { type = "collect", qid = 5086, title = "Toxic Horror Droplet", note = "TODO: no spawn data" },
+        { type = "turnin", qid = 6031, title = "Runecloth", x = 65.7, y = 2.8, note = "approximate coords (database, not play-tested); Meilosh" },
+        { type = "turnin", qid = 6844, title = "Umber, Archivist", mapID = 1450, x = 44.9, y = 35.6, note = "approximate coords (database, not play-tested); Umber" },
+        { type = "accept", qid = 6845, title = "Uncovering Past Secrets", mapID = 1450, x = 44.9, y = 35.6, note = "approximate coords (database, not play-tested); Umber" },
+        { type = "turnin", qid = 5527, title = "A Reliquary of Purity", mapID = 1450, x = 51.7, y = 45.1, note = "approximate coords (database, not play-tested); Rabine Saturna" },
+        { type = "turnin", qid = 6845, title = "Uncovering Past Secrets", mapID = 1450, x = 51.7, y = 45.1, note = "approximate coords (database, not play-tested); Rabine Saturna" },
+        { type = "accept", qid = 1185, title = "Under the Chitin Was...", mapID = 1450, x = 44.9, y = 35.6, note = "approximate coords (database, not play-tested); Umber" },
+        { type = "turnin", qid = 1185, title = "Under the Chitin Was...", mapID = 1450, x = 44.9, y = 35.6, note = "approximate coords (database, not play-tested); Umber" },
+        { type = "turnin", qid = 5086, title = "Toxic Horrors", mapID = 1452, x = 31.3, y = 45.2, note = "approximate coords (database, not play-tested); Donova Snowden" },
+        { type = "accept", qid = 5087, title = "Winterfall Runners", mapID = 1452, x = 31.3, y = 45.2, note = "approximate coords (database, not play-tested); Donova Snowden" },
+        { type = "collect", qid = 5087, title = "Winterfall Crate", mapID = 1452, x = 27.9, y = 34.5, note = "approximate coords (database, not play-tested); Winterfall Runner" },
+        { type = "turnin", qid = 5087, title = "Winterfall Runners", mapID = 1452, x = 31.3, y = 45.2, note = "approximate coords (database, not play-tested); Donova Snowden" },
+        { type = "turnin", qid = 5163, title = "Are We There, Yeti?", mapID = 1452, x = 60.9, y = 37.6, note = "approximate coords (database, not play-tested); Umi Rumplesnicker" },
+    },
+})

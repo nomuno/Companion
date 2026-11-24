@@ -1,0 +1,86 @@
+## Interface: 16001
+## Title: Companion - Quest Helper
+## Notes: Leveling guides, quest tracker, auto-accept, and dungeon quests for Companion.
+## Author: Darth
+## Version: 0.71
+## Dependencies: Companion
+## DefaultState: enabled
+## IconTexture: Interface\Icons\INV_Misc_Map_01
+## Category: Quests
+
+Quests.lua
+Tracker.lua
+Guide.lua
+Dungeons.lua
+QuestRecorder.lua
+AutoQuest.lua
+GuidePanel.lua
+QuestItem.lua
+Guides\Mulgore.lua
+Guides\Tanaris45.lua
+Guides\Barrens.lua
+Guides\Ashenvale.lua
+Guides\Winterspring54.lua
+Guides\Skyborne.lua
+Guides\Felwood58.lua
+Guides\Felwood52.lua
+Guides\Hinterlands47.lua
+Guides\Hillsbrad.lua
+Guides\UnGoro50.lua
+Guides\Desolace30.lua
+Guides\Dustwallow39.lua
+Guides\Feralas42.lua
+Guides\Durotar.lua
+Guides\Stranglethorn32.lua
+Guides\Silverpine.lua
+Guides\Feralas44.lua
+Guides\Azshara49.lua
+Guides\EasternPlaguelands56.lua
+Guides\Stonetalon.lua
+Guides\Silithus57.lua
+Guides\Tirisfal.lua
+Guides\Stranglethorn40.lua
+Guides\ThousandNeedles.lua
+Guides\Azshara55.lua
+Guides\Arathi37.lua
+Guides\Alliance\Wetlands2930.lua
+Guides\Alliance\DunMoroghAndLochModan911.lua
+Guides\Alliance\WesternPlaguelands5457Alliance.lua
+Guides\Alliance\Ashenvale3435Alliance.lua
+Guides\Alliance\UnGoro4852Alliance.lua
+Guides\Alliance\Silithus5658Alliance.lua
+Guides\Alliance\Desolace3134Alliance.lua
+Guides\Alliance\Duskwood2425.lua
+Guides\Alliance\Westfall1416.lua
+Guides\Alliance\Badlands3941Alliance.lua
+Guides\Alliance\SearingGorge4749Alliance.lua
+Guides\Alliance\LochModan1618.lua
+Guides\Alliance\Duskwood3031.lua
+Guides\Alliance\Stranglethorn4043Alliance.lua
+Guides\Alliance\Hinterlands4648Alliance.lua
+Guides\Alliance\Wetlands3132.lua
+Guides\Alliance\Stranglethorn3438Alliance.lua
+Guides\Alliance\Tanaris4547Alliance.lua
+Guides\Alliance\Northshire16.lua
+Guides\Alliance\Teldrassil611.lua
+Guides\Alliance\Shadowglen16.lua
+Guides\Alliance\StranglethornAndGnomeregan3234.lua
+Guides\Alliance\Darkshore1820.lua
+Guides\Alliance\Redridge2527.lua
+Guides\Alliance\Ashenvale2324Alliance.lua
+Guides\Alliance\Darkshore1114.lua
+Guides\Alliance\Feralas4346Alliance.lua
+Guides\Alliance\Winterspring5355Alliance.lua
+Guides\Alliance\Redridge2023.lua
+Guides\Alliance\Badlands4344Alliance.lua
+Guides\Alliance\Elwynn69.lua
+Guides\Alliance\DunMorogh69.lua
+Guides\Alliance\Silithus5760Alliance.lua
+Guides\Alliance\Coldridge16.lua
+Guides\Alliance\Ashenvale2729Alliance.lua
+Guides\Alliance\Hillsbrad3032Alliance.lua
+Guides\Alliance\Arathi3740Alliance.lua
+Guides\Alliance\Felwood5254Alliance.lua
+Guides\Alliance\ThousandNeedles2831Alliance.lua
+Guides\Alliance\BurningSteppes5153Alliance.lua
+Options.lua

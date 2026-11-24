@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: Companion - Marker Wheel
+## Notes: Radial raid-marker wheel for Companion.
+## Author: Darth
+## Version: 0.71
+## Dependencies: Companion
+## DefaultState: enabled
+## IconTexture: Interface\Icons\INV_Misc_Map_01
+## Category: Quests
+
+Marker.lua
+Options.lua

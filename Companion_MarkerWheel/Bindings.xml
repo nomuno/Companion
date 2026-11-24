@@ -1,0 +1,3 @@
+<Bindings>
+    <Binding name="CLICK CompanionMarkWheelKey:LeftButton" header="COMPANION" runOnUp="true" />
+</Bindings>

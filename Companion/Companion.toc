@@ -1,0 +1,27 @@
+## Interface: 16001
+## Title: Companion
+## Notes: 3D companion window, compass tracker, and voices. Other features load as Companion modules.
+## Author: Darth
+## Version: 0.71
+## DefaultState: enabled
+## SavedVariables: CompanionDB
+## IconTexture: Interface\Icons\INV_Misc_Map_01
+## Category: Quests
+
+Core.lua
+Modules.lua
+Dialogue.lua
+Voice.lua
+CompanionFrame.lua
+LegacyModel.lua
+SceneModel.lua
+ModelPresets.lua
+SettingsUI.lua
+Options.lua
+Reactions.lua
+Chatter.lua
+Lore.lua
+Emotes.lua
+Navigation.lua
+Wisp.lua
+SettingsPanel.lua

@@ -1,0 +1,21 @@
+Companion - a WoW Forever leveling companion addon
+Copyright (C) 2026 Darth Knowlton
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See LICENSE for the full text. It comes with NO WARRANTY.
+
+Credits:
+- Leveling route order in Guides/ is adapted from Polestar
+  (https://github.com/fitzforge/polestar), GPL-3.0, (c) The Polestar authors.
+  Companion has changed it: class steps, WoW Forever quests, play-tested
+  corrections, and a custom Tirisfal Glades route.
+- Some routes draw on TUGs' free Guidelime WoW Forever guides.
+- Combat.lua's threat colours (green/yellow/red, flipped for tanks) and the
+  quest-mob nameplate icon follow Threat Plates (TidyPlates_ThreatPlates,
+  by Suicidal Katt and Blacksalsify, GPL). Companion's code is its own.
+
+Marker wheel (Marker.lua): layout inspired by EasyMarks Forever by Hammerdance (MIT License). Our own code.
+
+Companion Gather (CompanionGather/): mining and herb callouts, node glow, and herb/ore-only soft targeting, split out of Nodes.lua in 0.59. Same license (GPL-3.0). When both addons are loaded, Gather owns the CVars and hands spoken callouts to Companion.

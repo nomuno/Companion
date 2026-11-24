@@ -1,0 +1,56 @@
+-- Companion module: Quest Helper. Uses the shared Companion table (this file is a separate addon; `ns` is not shared automatically).
+-- 2026-10-14: steps reordered to follow the Polestar addon's route (Polestar is credited in CREDITS.txt; Companion is GPL-3.0). Data/coords/notes unchanged.
+-- Guides/Alliance/DunMorogh69.lua - Dun Morogh 6-9 (Alliance), uiMapID 1426.
+-- Route order from TUGs' free Guidelime guides for WoW Forever (6-9 Dun Morogh.lua); thanks TUGs!
+-- Data: ForeverDB (Forever-seen first) > Wowhead Forever tooltips > Questie classic DB. TODO where unknown.
+local ns = _G.Companion
+if not ns then return end
+ns:RegisterGuide("Dun Morogh 6-9", {
+    faction = "Alliance", minLevel = 5, maxLevel = 10, mapID = 1426, startZones = { 1426 }, next = "Dun Morogh & Loch Modan 9-11",
+    steps = {
+        { type = "note", text = "Go through the tunnel, afterwards kill EVERY boar on your way to the tavern!", note = "TUGs route note; Next when done" },
+        { type = "turnin", qid = 420, title = "Senir's Observations", x = 46.7, y = 53.8, note = "Senir Whitebeard" },
+        { type = "turnin", qid = 2160, title = "Supplies to Tannok", x = 47.2, y = 52.2, note = "Tannok Frosthammer" },
+        { type = "note", text = "Set your [S] to Dun Morogh at", note = "TUGs route note; Next when done" },
+        { type = "accept", qid = 400, title = "Tools for Steelgrill", x = 46, y = 51.7, note = "Tharek Blackstone" },
+        { type = "accept", qid = 384, title = "Beer Basted Boar Ribs", x = 46.8, y = 52.4, note = "Ragnar Thunderbrew" },
+        { type = "turnin", qid = 400, title = "Tools for Steelgrill", x = 50.4, y = 49.1, note = "Beldin Steelgrill" },
+        { type = "accept", qid = 317, title = "Stocking Jetsteam", x = 49.4, y = 48.4, note = "Pilot Bellowfiz" },
+        { type = "accept", qid = 313, title = "The Grizzled Den", x = 49.6, y = 48.6, note = "Pilot Stonegear" },
+        { type = "accept", qid = 5541, title = "Ammo for Rumbleshot", x = 50.1, y = 49.4, note = "Loslor Rudge" },
+        { type = "collect", qid = 317, title = "Chunk of Boar Meat", obj = 1, x = 49.1, y = 47.8, note = "Elder Crag Boar" },
+        { type = "collect", qid = 317, title = "Thick Bear Fur", obj = 2, x = 39.9, y = 46.6, note = "Ice Claw Bear" },
+        { type = "turnin", qid = 384, title = "Beer Basted Boar Ribs", x = 46.8, y = 52.4, note = "Ragnar Thunderbrew" },
+        { type = "turnin", qid = 317, title = "Stocking Jetsteam", x = 49.4, y = 48.4, note = "Pilot Bellowfiz" },
+        { type = "accept", qid = 318, title = "Evershine", x = 49.4, y = 48.4, note = "Pilot Bellowfiz" },
+        { type = "note", text = "Stocking Jetsteam is your NR 1 Priority now, GO OUT OF YOUR WAY to kill bears and boars!", note = "TUGs route note; Next when done" },
+        { type = "collect", qid = 313, title = "Wendigo Mane", x = 41.6, y = 49.4, note = "Wendigo" },
+        { type = "accept", qid = 287, title = "Frostmane Hold", x = 46.7, y = 53.8, note = "Senir Whitebeard" },
+        { type = "turnin", qid = 313, title = "The Grizzled Den", x = 49.6, y = 48.6, note = "Pilot Stonegear" },
+        { type = "collect", qid = 5541, title = "Rumbleshot's Ammo", x = 44.1, y = 57, note = "Ammo Crate" },
+        { type = "turnin", qid = 5541, title = "Ammo for Rumbleshot", x = 40.7, y = 65.1, note = "Hegnar Rumbleshot" },
+        { type = "kill", qid = 287, title = "Frostmane Headhunter", x = 25.4, y = 50.4 },
+        { type = "complete", qid = 287, title = "Fully explore Frostmane Hold", x = 22.8, y = 52.1 },
+        { type = "turnin", qid = 318, title = "Evershine", x = 30.2, y = 45.7, note = "Rejold Barleybrew" },
+        { type = "accept", qid = 319, title = "A Favor for Evershine", x = 30.2, y = 45.7, note = "Rejold Barleybrew" },
+        { type = "accept", qid = 310, title = "Bitter Rivals", x = 30.2, y = 45.5, note = "Marleth Barleybrew" },
+        { type = "kill", qid = 319, title = "Ice Claw Bear", obj = 1, x = 39.9, y = 46.6 },
+        { type = "kill", qid = 319, title = "Elder Crag Boar", obj = 2, x = 49.1, y = 47.8 },
+        { type = "kill", qid = 319, title = "Snow Leopard", obj = 3, x = 47.2, y = 49.1 },
+        { type = "turnin", qid = 319, title = "A Favor for Evershine", x = 30.2, y = 45.7, note = "Rejold Barleybrew" },
+        { type = "accept", qid = 320, title = "Return to Bellowfiz", x = 30.2, y = 45.7, note = "Rejold Barleybrew" },
+        { type = "hearth", text = "Use your Hearthstone", note = "TUGs route note; Next when done" },
+        { type = "note", text = "wnstairs there is a Dwarf protecting the Barrel, Give him the Thunder Ale(if he isnt there,someone else has done this and you can interact with the barrel immediately and drink the Ale yourself!)", note = "TUGs route note; Next when done" },
+        { type = "turnin", qid = 310, title = "Bitter Rivals", x = 47.7, y = 52.7, note = "Unguarded Thunder Ale Barrel" },
+        { type = "accept", qid = 311, title = "Return to Marleth", x = 47.7, y = 52.7, note = "Unguarded Thunder Ale Barrel" },
+        { type = "note", text = "MAKE SURE YOU GOT THE EXPLORATION part of \"Frostmane Hold\". Die on purpose and rezz up! If youre a pserver player: dieing IN the cave gets you to Kharanos not the starting area!", note = "TUGs route note; Next when done" },
+        { type = "turnin", qid = 287, title = "Frostmane Hold", x = 46.7, y = 53.8, note = "Senir Whitebeard" },
+        { type = "accept", qid = 291, title = "The Reports", x = 46.7, y = 53.8, note = "Senir Whitebeard" },
+        { type = "turnin", qid = 320, title = "Return to Bellowfiz", x = 49.4, y = 48.4, note = "Pilot Bellowfiz" },
+        { type = "turnin", qid = 311, title = "Return to Marleth", x = 30.2, y = 45.5, note = "Marleth Barleybrew" },
+        { type = "accept", qid = 312, title = "Tundra MacGrann's Stolen Stash", x = 34.6, y = 51.6, note = "Tundra MacGrann" },
+        { type = "note", text = "For the next part you do NOT need to kill the yeti. Wait until he leaves - this might take up to 5minutes- the cave(if he is in there) and then loot the chest and run out immediately!", note = "TUGs route note; Next when done" },
+        { type = "collect", qid = 312, title = "MacGrann's Dried Meats", x = 38.5, y = 53.9, note = "MacGrann's Meat Locker" },
+        { type = "turnin", qid = 312, title = "Tundra MacGrann's Stolen Stash", x = 34.6, y = 51.6, note = "Tundra MacGrann" },
+    },
+})
