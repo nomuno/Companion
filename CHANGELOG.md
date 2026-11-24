@@ -1,3 +1,12 @@
+# 0.72
+
+- Voice packs: each voice is now its own optional download, so you only install the voice you use. Companion keeps every voice's everyday lines (greetings, banter, praise, scolding, encouragement, level-up, quest, loot, combat, bags, reminders, time-of-day and guide lines: 300 per voice). Zone comments and zone histories (1,052 per voice) moved to Companion - Voice: Nicole, Companion - Voice: Kahani and Companion - Voice: Shelley.
+- Settings > AddOns > Companion > Audio lists all three voices with a Play sample button, which one is in use, and whether the full pack is installed (green), installed but not loaded (orange, with an Enable button) or samples only (yellow, with a copyable download link).
+- Choosing a voice without its pack is fine: the everyday lines are spoken and zone lines show as text. Companion never switches to a different voice to fill a gap.
+- `/comp voices` prints each voice's status.
+- The Companion download is about 21 MB instead of about 122 MB. After updating, install the pack for your voice and restart WoW fully (new addon folders need a restart).
+- All Companion modules are versioned 0.72 with the core.
+
 # 0.71
 
 - 753 new female voice lines for levels 30 to 60: zone and landmark lore plus zone comments on the road from 30 to 60.
@@ -55,6 +64,10 @@
 
 # Companion - Gather
 
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
+
 # 0.71
 
 - Version bump with the Companion 0.71 suite.
@@ -78,6 +91,10 @@
 
 # Companion - Loot
 
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
+
 # 0.71
 
 - Version bump with the Companion 0.71 suite.
@@ -91,6 +108,10 @@
 - First version: a movable anchor for Need/Greed/Pass loot-roll frames, with lock and scale settings. Changes wait until combat ends if the client protects the frames.
 
 # Companion - Marker Wheel
+
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
 
 # 0.71
 
@@ -122,6 +143,10 @@
 
 # Companion - Nameplates
 
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
+
 # 0.71
 
 - Version bump with the Companion 0.71 suite.
@@ -152,6 +177,10 @@
 - First version: class buff ring on the portrait, Companion-style enemy nameplates with threat colours (look follows Threat Plates), and the quest-mob icon. Plates switch off when Threat Plates is loaded.
 
 # Companion - Quest Helper
+
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
 
 # 0.71
 
@@ -195,6 +224,10 @@
 - Leveling guide with Prev / Next / Skip, quest tracker, quest recorder (`/comp recorder`, `/comp export`), guide chaining and the dungeon ready check.
 
 # Companion - Reminders
+
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
 
 # 0.71
 

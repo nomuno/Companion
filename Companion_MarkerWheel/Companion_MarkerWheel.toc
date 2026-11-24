@@ -2,7 +2,7 @@
 ## Title: Companion - Marker Wheel
 ## Notes: Radial raid-marker wheel for Companion.
 ## Author: Darth
-## Version: 0.71
+## Version: 0.72
 ## Dependencies: Companion
 ## DefaultState: enabled
 ## IconTexture: Interface\Icons\INV_Misc_Map_01

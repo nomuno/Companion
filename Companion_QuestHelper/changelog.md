@@ -1,3 +1,7 @@
+# 0.72
+
+- Version bump with the Companion 0.72 suite.
+
 # 0.71
 
 - Version bump with the Companion 0.71 suite.

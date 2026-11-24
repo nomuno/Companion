@@ -4,7 +4,7 @@
 local addonName, ns = ...
 _G.Companion = ns
 
-ns.VERSION = "0.71"
+ns.VERSION = "0.72"
 ns.SOUND_DIR = "Interface\\AddOns\\" .. addonName .. "\\sounds\\"
 
 ns.defaults = {

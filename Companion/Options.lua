@@ -81,7 +81,7 @@ end)
 ns.LockOptionButton = lockToggle
 
 -- ===================== AUDIO =====================
-local audio = NewPanel("audio", "Audio", 330, 400)
+local audio = NewPanel("audio", "Audio", 330, 700)
 Label(audio, "Voice:", -44)
 local voiceToggle = Btn(audio, nil, 110, PANEL_PAD, -62)
 local modeToggle  = Btn(audio, nil, 170, PANEL_PAD + 118, -62)
@@ -128,35 +128,113 @@ TestBtn("Test Scold", "scolding", PANEL_PAD + 148, -200)
 TestBtn("Test Encourage", "encouragement", PANEL_PAD, -228)
 TestBtn("Test Quest", "questAccept", PANEL_PAD + 148, -228)
 
--- 0.39: voice pitch (Low / Normal / High), gender (female only for now), pet-name clips
-Label(audio, "Voice:", -288)
-local pitchBtns = {}
+-- 0.72: voices and voice packs. Each voice has a row: select button (the voice name), Play sample,
+-- pack status, a short description, and (when the pack isn't installed) a copyable download link.
+-- 0.39 pitch slots stay as the stored values: low = Nicole, normal = Kahani, high = Shelley.
+Label(audio, "Voices:", -264)
+local inUse = Label(audio, "", -264)
+inUse:ClearAllPoints()
+inUse:SetPoint("TOPLEFT", PANEL_PAD + 64, -264)
+Label(audio, "Every voice has its greetings, banter and other everyday lines built in. A voice pack adds that voice's zone comments and zone histories.", -282, "GameFontDisableSmall"):SetWidth(580)
+local pitchBtns, voiceRows = {}, {}
+local ROW0, ROWH = -306, 74
 for i, p in ipairs({ "low", "normal", "high" }) do
-    pitchBtns[p] = Btn(audio, ns.VOICE_NAMES[p], 92, PANEL_PAD + (i - 1) * 98, -306, function()
+    local y = ROW0 - (i - 1) * ROWH
+    local row = {}
+    pitchBtns[p] = Btn(audio, ns.VOICE_NAMES[p], 92, PANEL_PAD, y, function()
         ns.SetVoicePitch(p)
         ns:SpeakCategory("praise", true)   -- hear the new voice
     end)
+    pitchBtns[p]:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("Use " .. ns.VOICE_NAMES[p])
+        GameTooltip:AddLine("Without the voice pack only the built-in lines are voiced; zone lines show as text.", 1, 1, 1, true)
+        GameTooltip:Show()
+    end)
+    pitchBtns[p]:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    row.sample = Btn(audio, "Play sample", 100, PANEL_PAD + 98, y, function() ns.PlayVoiceSample(p) end)
+    row.status = audio:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    row.status:SetPoint("TOPLEFT", PANEL_PAD + 208, y - 5)
+    row.status:SetJustifyH("LEFT")
+    row.status:SetWidth(380)
+    row.desc = audio:CreateFontString(nil, "OVERLAY", "GameFontDisableSmall")
+    row.desc:SetPoint("TOPLEFT", PANEL_PAD + 4, y - 28)
+    row.desc:SetJustifyH("LEFT")
+    row.desc:SetWidth(200)
+    row.desc:SetText((ns.VOICE_INFO[p] and ns.VOICE_INFO[p].desc) or "")
+    row.linkLabel = audio:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+    row.linkLabel:SetPoint("TOPLEFT", PANEL_PAD + 208, y - 30)
+    row.linkLabel:SetText("Download:")
+    local url = ns.VoicePackURL(p)
+    local box = CreateFrame("EditBox", nil, audio, "InputBoxTemplate")
+    box:SetSize(330, 20)
+    box:SetPoint("TOPLEFT", PANEL_PAD + 274, y - 26)
+    box:SetAutoFocus(false)
+    box:SetText(url)
+    box:SetCursorPosition(0)
+    box:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+    box:SetScript("OnTextChanged", function(self, user) if user then self:SetText(url) self:HighlightText() end end)
+    box:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+    box:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+    box:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("Click, then Ctrl+C to copy")
+        GameTooltip:AddLine("Unzip the pack into Interface\\AddOns next to Companion, then restart WoW fully.", 1, 1, 1, true)
+        GameTooltip:Show()
+    end)
+    box:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    row.link = box
+    row.enable = Btn(audio, "Enable pack", 110, PANEL_PAD + 208, y - 26, function()
+        if ns.EnableAddonForCharacter then ns.EnableAddonForCharacter(ns.VOICE_INFO[p].addon, true) end
+        row.enabledPending = true
+        ns.UpdateAudioOptions()
+    end)
+    voiceRows[p] = row
 end
-Label(audio, "Voice:", -336)
-local femaleBtn = Btn(audio, "Female", 92, PANEL_PAD + 50, -332, function() ns.db.voiceGender = "female" end)
-local maleBtn = Btn(audio, "Male", 92, PANEL_PAD + 148, -332)
+local GY = ROW0 - 3 * ROWH - 4
+Label(audio, "Gender:", GY - 4)
+local femaleBtn = Btn(audio, "Female", 92, PANEL_PAD + 64, GY, function() ns.db.voiceGender = "female" end)
+local maleBtn = Btn(audio, "Male", 92, PANEL_PAD + 162, GY)
 maleBtn:Disable()
 maleBtn:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT") GameTooltip:SetText("Male voice: coming later") GameTooltip:Show()
 end)
 maleBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
-local petToggle = Btn(audio, nil, 290, PANEL_PAD, -362)
+local petToggle = Btn(audio, nil, 290, PANEL_PAD, GY - 30)
 petToggle:SetScript("OnClick", function()
     ns.db.petNameClips = not (ns.db.petNameClips ~= false)
     ns.UpdateAudioOptions()
 end)
 ns.PitchButtons, ns.PetNameButton, ns.MaleVoiceButton = pitchBtns, petToggle, maleBtn
+ns.VoiceRows = voiceRows
+local AUDIO_NEXT_Y = GY - 62
 function ns.UpdateAudioOptions()
+    if not ns.db then return end
     local cur = ns.db.voicePitch or "normal"
     for p, b in pairs(pitchBtns) do
         if p == cur then b:LockHighlight() else b:UnlockHighlight() end
         b.selected = (p == cur)
     end
+    for p, row in pairs(voiceRows) do
+        local st, pack = ns.VoicePackStatus(p)
+        row.state = st
+        local tag = (p == cur) and "|cff33ff33[In use]|r " or ""
+        if st == "full" then
+            row.status:SetText(tag .. "|cff33ff33Installed - full pack (v" .. pack.version .. ", "
+                .. (pack.lineCount + ns.CoreSampleCount()) .. " lines)|r")
+        elseif st == "notloaded" then
+            row.status:SetText(tag .. "|cffff9933" .. (row.enabledPending and "Pack enabled - restart WoW to load it"
+                or "Pack installed but not loaded - enable it, then restart WoW") .. "|r")
+        else
+            row.status:SetText(tag .. "|cffffd100Samples only - download the pack for the full voice|r")
+        end
+        row.link:SetShown(st == "samples")
+        row.linkLabel:SetShown(st == "samples")
+        row.enable:SetShown(st == "notloaded" and not row.enabledPending)
+    end
+    local st = ns.VoicePackStatus(cur)
+    inUse:SetText("in use: |cffffffff" .. (ns.VOICE_NAMES[cur] or cur) .. "|r"
+        .. (st == "full" and " |cff33ff33(full voice)|r" or " |cffffd100(samples only: zone lines show as text)|r"))
     femaleBtn:LockHighlight()
     petToggle:SetText((ns.db.petNameClips ~= false) and "Pet names in voice clips: ON" or "Pet names in voice clips: OFF (TTS)")
 end
@@ -225,7 +303,7 @@ Btn(models, "Apply", 60, PANEL_PAD + 210, customY, function()
     if id then SelectModel(id) end
 end)
 models.nextY = customY - 34   -- SettingsPanel.lua appends the 3D scene section below
-audio.nextY = -392            -- and the sound debug button below the audio controls
+audio.nextY = AUDIO_NEXT_Y      -- and the sound debug button below the audio controls
 
 -- ===================== STARTUP =====================
 ns:On("LOGIN", function()

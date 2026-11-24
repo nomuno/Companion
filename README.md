@@ -1,8 +1,8 @@
 # Companion
 
-3D companion for WoW: Forever who talks, reacts and points the way: a portrait window with her model, a compass wisp toward your next objective, zone lore, banter and about 1,350 voiced lines in three pitches. Gathering, quest guides, nameplates, marker wheel, loot and reminders are separate Companion modules.
+3D companion for WoW: Forever who talks, reacts and points the way: a portrait window with her model, a compass wisp toward your next objective, zone lore and banter in three voices (Nicole, Kahani, Shelley). Every voice's everyday lines are built in; full voices (zone comments and zone histories) are separate voice packs. Gathering, quest guides, nameplates, marker wheel, loot and reminders are separate Companion modules.
 
-**Version 0.71** · Interface 16001 · WoW: Forever · by Darth
+**Version 0.72** · Interface 16001 · WoW: Forever · by Darth
 
 ## Install with WowUp
 
@@ -12,7 +12,7 @@
 
 ## Manual install
 
-Download `Companion-0.71-forever.zip` from the [latest release](https://github.com/nomuno/Companion/releases/latest) and unzip it into `World of Warcraft/_forever_/Interface/AddOns`.
+Download `Companion-0.72-forever.zip` from the [latest release](https://github.com/nomuno/Companion/releases/latest) and unzip it into `World of Warcraft/_forever_/Interface/AddOns`.
 
 ## Folders in this repo
 
@@ -26,12 +26,14 @@ Download `Companion-0.71-forever.zip` from the [latest release](https://github.c
 
 The release zip contains all of them; each module can be turned off in the AddOns list.
 
-## What's new in 0.71
+## What's new in 0.72
 
-- 753 new female voice lines for levels 30 to 60: zone and landmark lore plus zone comments on the road from 30 to 60.
-- Voices: Low (Nicole), Normal (Kahani) and High (Shelley). Most of the new High lines are the Normal voice raised in pitch for now; they will be re-recorded in Shelley's own voice later.
-- New sound files need a full WoW restart, not just /reload.
-- All Companion modules are versioned 0.71 with the core.
+- Voice packs: each voice is now its own optional download, so you only install the voice you use. Companion keeps every voice's everyday lines (greetings, banter, praise, scolding, encouragement, level-up, quest, loot, combat, bags, reminders, time-of-day and guide lines: 300 per voice). Zone comments and zone histories (1,052 per voice) moved to Companion - Voice: Nicole, Companion - Voice: Kahani and Companion - Voice: Shelley.
+- Settings > AddOns > Companion > Audio lists all three voices with a Play sample button, which one is in use, and whether the full pack is installed (green), installed but not loaded (orange, with an Enable button) or samples only (yellow, with a copyable download link).
+- Choosing a voice without its pack is fine: the everyday lines are spoken and zone lines show as text. Companion never switches to a different voice to fill a gap.
+- `/comp voices` prints each voice's status.
+- The Companion download is about 21 MB instead of about 122 MB. After updating, install the pack for your voice and restart WoW fully (new addon folders need a restart).
+- All Companion modules are versioned 0.72 with the core.
 
 ---
 

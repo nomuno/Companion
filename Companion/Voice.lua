@@ -46,19 +46,147 @@ function ns.ClipPath(file, pitch, gender)
     return ns.SOUND_DIR .. gender .. "\\" .. pitch .. "\\" .. file
 end
 
--- Returns true if one of the candidate paths played.
-function ns.PlayClipFile(file)
-    if not file or file == "" then return false end
-    local tried = {}
-    for _, path in ipairs({ ns.ClipPath(file), ns.ClipPath(file, "normal"), ns.SOUND_DIR .. file }) do
-        if not tried[path] then
-            tried[path] = true
-            local ok, willPlay = pcall(PlaySoundFile, path, "Master")
-            if ok and willPlay then ns.lastClipPath = path return true end
+-- ===================== VOICE PACKS (0.72) =====================
+-- Core Companion ships every voice's "sample" lines (greetings, banter, praise, combat, loot,
+-- level-up, reminders, guide lines...). Zone comments (auto_zone_*) and zone/landmark histories
+-- (auto_lore_*) live in one optional addon per voice, so players only download the voice they use:
+--   low    = Nicole  -> Companion_Voice_Nicole
+--   normal = Kahani  -> Companion_Voice_Kahani
+--   high   = Shelley -> Companion_Voice_Shelley
+-- A pack's Lua calls Companion.RegisterVoicePack{ ... } when it loads; its clips are at
+-- Interface\AddOns\<pack>\sounds\<file>.ogg (flat, same file names as voice_lines.tsv).
+ns.VOICE_PACKS = {}
+ns.VOICE_PACK_REPO = "https://github.com/nomuno/"
+ns.VOICE_INFO = {
+    low    = { addon = "Companion_Voice_Nicole",  desc = "Low, warm and calm." },
+    normal = { addon = "Companion_Voice_Kahani",  desc = "Natural and bright. The default voice." },
+    high   = { addon = "Companion_Voice_Shelley", desc = "Higher, upbeat and playful." },
+}
+function ns.VoicePackURL(slot)
+    local info = ns.VOICE_INFO[slot]
+    return info and (ns.VOICE_PACK_REPO .. info.addon .. "/releases/latest") or ""
+end
+
+-- Pack-only clips: zone comments and zone histories. Everything else is a core sample.
+function ns.IsSampleClip(file)
+    if type(file) ~= "string" then return false end
+    return not (file:find("^auto_zone_") or file:find("^auto_lore_"))
+end
+
+-- Companion.RegisterVoicePack{ voice = "normal" (or "Kahani"), folder = "Companion_Voice_Kahani",
+--   name = "Kahani", version = "1.0.0", lineCount = 1052, gender = "female", placeholders = 0 }
+function ns.RegisterVoicePack(info)
+    if type(info) ~= "table" then return false end
+    local slot = ns.ResolveVoiceSlot(tostring(info.voice or info.pitch or info.id or info.name or ""))
+    if not slot then return false end
+    local folder = tostring(info.folder or (ns.VOICE_INFO[slot] and ns.VOICE_INFO[slot].addon) or "")
+    if folder == "" then return false end
+    ns.VOICE_PACKS[slot] = {
+        slot = slot,
+        folder = folder,
+        name = info.name or ns.VOICE_NAMES[slot],
+        version = tostring(info.version or "?"),
+        lineCount = tonumber(info.lineCount) or 0,
+        gender = info.gender or "female",
+        placeholders = tonumber(info.placeholders) or 0,
+        path = "Interface\\AddOns\\" .. folder .. "\\sounds\\",
+    }
+    if ns.UpdateAudioOptions and ns.db then pcall(ns.UpdateAudioOptions) end
+    return true
+end
+
+function ns.CoreSampleCount()
+    if ns.coreSampleCount then return ns.coreSampleCount end
+    local n, seen = 0, {}
+    for _, pool in pairs(ns.dialogue or {}) do
+        if type(pool) == "table" then
+            for _, e in ipairs(pool) do
+                local f = (e.sound and e.sound ~= "" and e.sound) or e.autoSound
+                if f and not seen[f] and ns.IsSampleClip(f) then seen[f] = true n = n + 1 end
+            end
         end
+    end
+    ns.coreSampleCount = n
+    return n
+end
+
+local function PackAddonState(addon)
+    -- "missing" | "present" (installed but not loaded: disabled, outdated, or added without a restart)
+    local fn = (C_AddOns and C_AddOns.GetAddOnInfo) or GetAddOnInfo
+    if type(fn) ~= "function" then return "missing" end
+    local ok, name, _, _, _, reason = pcall(fn, addon)
+    if not ok or type(name) ~= "string" or name == "" or reason == "MISSING" then return "missing" end
+    return "present"
+end
+
+-- Returns state ("full" | "notloaded" | "samples"), the pack table (or nil)
+function ns.VoicePackStatus(slot)
+    local pack = ns.VOICE_PACKS[slot]
+    if pack then return "full", pack end
+    local info = ns.VOICE_INFO[slot]
+    if info and PackAddonState(info.addon) == "present" then return "notloaded" end
+    return "samples"
+end
+
+-- Candidate paths for a clip in one voice: the pack (pack-only lines), then the core copy
+-- (samples; also any full 0.71-style core install). Never switches to another voice.
+function ns.ClipCandidates(file, pitch)
+    pitch = pitch or (ns.db and ns.db.voicePitch) or "normal"
+    if not PITCH_OK[pitch] then pitch = "normal" end
+    local list = {}
+    local pack = ns.VOICE_PACKS[pitch]
+    if pack and not ns.IsSampleClip(file) then list[#list + 1] = pack.path .. file end
+    list[#list + 1] = ns.ClipPath(file, pitch)
+    return list
+end
+
+-- Returns true if one of the candidate paths played. Missing clips just stay silent
+-- (PlaySoundFile returns false for a missing file; the line still shows as text).
+function ns.PlayClipFile(file, pitch)
+    if not file or file == "" then return false end
+    for _, path in ipairs(ns.ClipCandidates(file, pitch)) do
+        local ok, willPlay = pcall(PlaySoundFile, path, "Master")
+        if ok and willPlay then ns.lastClipPath = path return true end
     end
     return false
 end
+
+-- Plays one built-in sample line in the given voice (Options "Play sample"); returns its text.
+local SAMPLE_CATS = { "welcome", "banter", "praise", "encouragement", "levelUp", "lootEpic" }
+function ns.PlayVoiceSample(slot)
+    if not PITCH_OK[slot or ""] then return nil end
+    local pool = {}
+    for _, cat in ipairs(SAMPLE_CATS) do
+        for _, e in ipairs((ns.dialogue and ns.dialogue[cat]) or {}) do
+            local f = (e.sound and e.sound ~= "" and e.sound) or e.autoSound
+            if f and ns.IsSampleClip(f) and ns.LineFitsPlayer(e) then pool[#pool + 1] = { f, e } end
+        end
+    end
+    if #pool == 0 then return nil end
+    local pick = pool[math.random(#pool)]
+    if C_VoiceChat and C_VoiceChat.StopSpeakingText then pcall(C_VoiceChat.StopSpeakingText) end
+    if ns.PlayClipFile(pick[1], slot) then
+        return pick[2].text
+    end
+    return nil
+end
+
+function ns.VoiceStatusLine(slot)
+    local name = ns.VOICE_NAMES[slot] or slot
+    local st, pack = ns.VoicePackStatus(slot)
+    if st == "full" then
+        return name .. ": full pack v" .. pack.version .. " (" .. (pack.lineCount + ns.CoreSampleCount()) .. " lines)"
+    elseif st == "notloaded" then
+        return name .. ": pack installed but not loaded (enable " .. ns.VOICE_INFO[slot].addon .. " in the AddOns list, then restart)"
+    end
+    return name .. ": samples only (" .. ns.CoreSampleCount() .. " lines). Full voice: " .. ns.VoicePackURL(slot)
+end
+
+ns:AddCommand("voices", function()
+    local cur = (ns.db and ns.db.voicePitch) or "normal"
+    ns.Print("voices (in use: " .. (ns.VOICE_NAMES[cur] or cur) .. ")")
+    for _, slot in ipairs(ns.VOICE_PITCHES) do print("  " .. ns.VoiceStatusLine(slot)) end
+end)
 
 local function PlayClip(soundFile)
     if not soundFile or soundFile == "" then
@@ -78,6 +206,7 @@ local function VoiceCmd(rest)
     local slot = ns.ResolveVoiceSlot((rest or ""):match("%a+"))
     if slot and ns.SetVoicePitch(slot) then
         ns.Print("voice: " .. ns.VOICE_NAMES[slot])
+        if ns.VoicePackStatus(slot) ~= "full" then print("  " .. ns.VoiceStatusLine(slot)) end
         ns:SpeakCategory("praise", true)
     else
         ns.Print("usage: /comp voice nicole|kahani|shelley (now " .. ns.VOICE_NAMES[ns.db.voicePitch or "normal"] .. ")")

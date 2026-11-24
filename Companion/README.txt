@@ -19,6 +19,17 @@ COMMANDS
   /comp config     all settings (also in Options > AddOns > Companion)
   /comp help       lists all commands
 
+VOICES AND VOICE PACKS (0.72)
+Companion has three voices: Nicole (low), Kahani (normal, the default) and Shelley (high).
+Every voice's everyday lines are built in. For a voice's zone comments and zone histories,
+install its voice pack next to Companion (only the one you use):
+  Companion_Voice_Nicole   https://github.com/nomuno/Companion_Voice_Nicole/releases/latest
+  Companion_Voice_Kahani   https://github.com/nomuno/Companion_Voice_Kahani/releases/latest
+  Companion_Voice_Shelley  https://github.com/nomuno/Companion_Voice_Shelley/releases/latest
+Settings > AddOns > Companion > Audio has a Play sample button for each voice and shows which
+packs are installed. /comp voice <name> picks a voice, /comp voices lists them. New addon
+folders need a full WoW restart.
+
 SENDING QUEST DATA BACK (thank you!)
 The addon quietly records where quests are picked up, turned in and done.
 Send it back either way:
