@@ -15,6 +15,9 @@ ns.defaults.navArriveYards = 15
 
 local nav = { target = nil, manual = nil, current = 0, lastPick = 0 }
 ns.nav = nav
+-- Quest-log cache is filled by Companion_QuestHelper. Navigation is core, so
+-- the table must exist even when that module is disabled or has not loaded yet.
+ns.quests = ns.quests or {}
 
 local function safe(fn, ...)
     if not fn then return nil end
@@ -54,7 +57,7 @@ local function QuestTargets(mapID)
     if type(onMap) == "table" then
         for _, info in ipairs(onMap) do
             if info.questID and info.x and info.y then
-                local q = ns.quests[info.questID]
+                local q = ns.quests and ns.quests[info.questID]
                 table.insert(list, {
                     mapID = mapID, x = info.x, y = info.y,
                     label = q and q.title or ("Quest " .. info.questID),
@@ -134,7 +137,7 @@ end
 local arrived = false
 
 local function Update(elapsed)
-    if not ns.db.navEnabled or not ns.model or not ns.frame:IsShown() then return end
+    if not ns.db or not ns.db.navEnabled or not ns.model or not ns.frame or not ns.frame:IsShown() then return end
 
     nav.lastPick = nav.lastPick + elapsed
     if nav.lastPick > 1 then

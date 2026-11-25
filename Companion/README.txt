@@ -65,3 +65,9 @@ Credits
   she points it out. Toggle in Options > General; /comp nodes [on|off].
 - New voice clips: auto_lore_*.ogg and auto_node*.ogg (listed in voice_lines.tsv). Run
   generate_sound.sh to make them; until then those lines use TTS (or text only).
+
+0.73
+- Navigation no longer errors when Companion_QuestHelper is disabled or has not
+  created the quest-log cache yet (the "attempt to index field 'quests'" error
+  on map pins). Pins still work, and they use the quest title when Quest Helper
+  is loaded.

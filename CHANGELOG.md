@@ -1,3 +1,7 @@
+# 0.73
+
+- Navigation no longer errors when Companion_QuestHelper is disabled or has not created the quest-log cache yet (the "attempt to index field 'quests'" error on map pins). Pins still work, and they use the quest title when Quest Helper is loaded.
+
 # 0.72
 
 - Voice packs: each voice is now its own optional download, so you only install the voice you use. Companion keeps every voice's everyday lines (greetings, banter, praise, scolding, encouragement, level-up, quest, loot, combat, bags, reminders, time-of-day and guide lines: 300 per voice). Zone comments and zone histories (1,052 per voice) moved to Companion - Voice: Nicole, Companion - Voice: Kahani and Companion - Voice: Shelley.
